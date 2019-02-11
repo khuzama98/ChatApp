@@ -383,6 +383,14 @@ const removeSent = async (referKey) => {
     })
 }
 
+const checkForLi = () => {
+    const ul = document.getElementById('ulFriend');
+    const li = ul.getElementsByTagName('li');
+    if(li.length===0){
+        ul.innerHTML = '';
+    }
+}
+
 const showFriends = () => {
     const ul = document.getElementById('ulFriend');
     document.querySelector('.contactHeading').innerHTML = 'My Friends';
@@ -393,7 +401,7 @@ const showFriends = () => {
 
 const friendSync = firebase.database().ref('chat-users').child(myKey).child('friends');
 friendSync.on('child_added', async data => {
-    document.getElementById('ulFriend').innerHTML = '';
+    checkForLi();
     show(data.val());
 })
 friendSync.on('child_removed', data => {
