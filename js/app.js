@@ -12,21 +12,6 @@
 firebase.initializeApp(config);
 
 
-window.addEventListener('load', async e =>{
-    
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('../sw.js')
-          .then(() => {
-              console.log('service worker')
-          })
-          .catch(error =>{
-            console.log(error)
-          })
-    }
-    else{
-      console.log('no serviceWorker')
-    }
-  })
 
 
 const facebookSignup = async () => {

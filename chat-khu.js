@@ -3,7 +3,7 @@ const staticAssets = [
     './',
     './stylesheet/style.css',
     './index.html',
-    './img/empty-avatar.png',
+    './images/empty-avatar.png',
     './icon/logo.png',
     './icon/logo1.svg',
     './js/app.js',
@@ -16,7 +16,14 @@ self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(cacheName).then(function(cache) {
           console.log('[ServiceWorker] Caching app shell');
-          return cache.addAll(staticAssets);
+          return cache.addAll(staticAssets)
+          .then(() => {
+            console.info('All files are cached');
+            return self.skipWaiting(); //To forces the waiting service worker to become the active service worker
+          })
+          .catch((error) =>  {
+            console.error('Failed to cache', error);
+          })
         })
       );
 })
